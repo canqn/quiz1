@@ -1,18 +1,8 @@
 /*=============== VARIABLES CSS ===============*/
 :root {
-  --header-height: 3.5rem; /*56px*/
-
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --hue: 152;
-  --first-color: hsl(var(--hue), 24%, 32%);
-  --first-color-alt: hsl(var(--hue), 24%, 28%);
-  --first-color-light: hsl(var(--hue), 24%, 66%);
-  --first-color-lighten: hsl(var(--hue), 24%, 92%);
-  --title-color: hsl(var(--hue), 4%, 15%);
-  --text-color: hsl(var(--hue), 4%, 35%);
-  --text-color-light: hsl(var(--hue), 4%, 55%);
-  --body-color: hsl(var(--hue), 0%, 100%);
+  --text-color: #000000;
   --container-color: #fff;
 
   /*========== Font and typography ==========*/
@@ -27,7 +17,7 @@
   --smaller-font-size: 0.75rem;
 
   /*========== Font weight ==========*/
-  --font-medium: 500;
+  --font-medium: 400;
   --font-semi-bold: 700;
 }
 
@@ -84,10 +74,15 @@ img {
 }
 
 .main {
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    'sidebar content'
+    'sidebar footer';
+  min-height: 100vh;
 }
-
+/*=============== SIDEBAR ===============*/
 .sidebar {
+  grid-area: sidebar;
   width: 150px;
   background-color: #191718;
 }
@@ -106,27 +101,117 @@ img {
   color: #aaaaaa;
   font-weight: var(--font-semi-bold);
 }
-
+/*=============== CONTENT ===============*/
 .content {
-  flex: 1;
-  padding: 20px;
+  grid-area: content;
   margin: 2rem 4rem;
 }
 
 .content__logo {
   display: flex;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 
+.content__desc {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  background-color: #efefef;
+  padding: 2rem 3rem;
+}
 .img__content {
   width: 310px;
   height: 122px;
 }
+
+.content__desc-content {
+  font-size: 16px;
+  font-weight: var(--font-medium);
+}
+
+.content__desc-title {
+  margin-bottom: 1rem;
+}
+
+.content__data {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.content__card h1 {
+  font-size: 24px;
+  font-weight: var(--font-semi-bold);
+  color: #000000;
+  margin-bottom: 1rem;
+}
+.content__data-desc {
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: var(--font-medium);
+}
+
+.content__data-desc img {
+  width: 128px;
+  float: left;
+  padding-right: 10px;
+}
+/*=============== FOOTER ===============*/
 .footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px 0;
-  width: 100%;
-  flex-shrink: 0;
+  padding: 2rem 4rem;
+  border-top: 1px solid #dedede;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* Mobile */
+@media screen and (max-width: 320px) {
+  .content__data {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .content__data {
+    grid-template-columns: 1fr;
+  }
+  .content {
+    margin: 1rem; /* Giảm padding cho sidebar và content */
+  }
+  .footer {
+    padding: 1rem;
+  }
+}
+/* Table */
+
+@media screen and (min-width: 767px) {
+  .content__data {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sidebar {
+    order: -1;
+  }
+  .content {
+    margin: 2rem; /* Giảm padding cho sidebar và content */
+  }
+  .footer {
+    padding: 2rem;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 992px) {
+  .content__data {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .content {
+    margin: 2rem 4rem;
+  }
+  .footer {
+    padding: 2rem 4rem;
+  }
 }
